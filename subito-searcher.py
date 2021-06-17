@@ -121,13 +121,15 @@ def run_query(url, name, notify):
             title = "Unknown title"
 
         try:
-            price=product.find('p',class_=re.compile(r'price')).contents[0]
-
-            try:
-                for tag in price.find_all("span"):
-                    tag.replaceWith('')
-            except:
-                None
+            if (product.find('p',class_=re.compile(r'price')).get_text() == 'Spedizione disponibile'):
+                price = '0';
+            else:
+                price=product.find('p',class_=re.compile(r'price')).contents[0]
+                try:
+                    for tag in BeautifulSoup(price.text).find_all('span'):
+                        tag.replaceWith('')
+                except:
+                    None
 
             #at the moment (20.5.2021) the price is under the 'p' tag with 'span' inside if shipping available
         except:
