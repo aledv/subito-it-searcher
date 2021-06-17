@@ -35,7 +35,7 @@ args = parser.parse_args()
 
 queries = dict()
 apiCredentials = dict()
-dbFile = "subito.tracked"
+dbFile = "tutti.tracked"
 telegramApiFile = "telegram_api_credentials"
 
 # Windows notifications
@@ -111,37 +111,32 @@ def run_query(url, name, notify):
     page = requests.get(url)
     soup = BeautifulSoup(page.text, 'html.parser')
         
-    product_list_items = soup.find_all('div', class_=re.compile(r'item-key-data'))
+    #product_list_items = soup.find_all('div', class_=re.compile(r'item-key-data'))
+    product_list_items = soup.find_all('div', class_=re.compile(r'p78z0m-0'))
+
     msg = []
 
     for product in product_list_items:
-        try:
-            title = product.find('h2').string
-        except:
-            title = "Unknown title"
+        a_content = product.find('a').contents[0]
+
+        img = a_content.find('img', alt=True)
+        title = img['alt']
 
         try:
-            price=product.find('p',class_=re.compile(r'price')).contents[0]
-
-            try:
-                for tag in price.find_all("span"):
-                    tag.replaceWith('')
-            except:
-                None
-
+            price=product.find('div',class_=re.compile(r'p78z0m-12')).string
             #at the moment (20.5.2021) the price is under the 'p' tag with 'span' inside if shipping available
+
         except:
             price = "Unknown price"
 
-        try:
-            link = product.parent.parent.parent.parent.get('href')
-        except:
-            link = "Unknown link"
+        link = product.find('a').get('href')
 
         try:
-            location = product.find('span',re.compile(r'town')).string + product.find('span',re.compile(r'city')).string
+            location = product.find('span',class_=re.compile(r'p78z0m-6')).string
+            #zip_code = product.find('span',class_=re.compile(r'p78z0m-7')).string
         except:
             location = "Unknown location"
+
 
         if not queries.get(name):   # insert the new search
             queries[name] = {url: {link: {'title': title, 'price': price, 'location': location}}}
@@ -149,7 +144,7 @@ def run_query(url, name, notify):
             print("Adding result:", title, "-", price, "-", location)
         else:   # add search results to dictionary
             if not queries.get(name).get(url).get(link):   # found a new element
-                tmp = "New element found for "+name+": "+title+" @ "+price+" - "+location+" --> "+link+'\n'
+                tmp = "New element found for "+name+": "+title+" @ "+ "-1" if price is None else price +" - "+location+" --> "+link+'\n'
                 msg.append(tmp)
                 queries[name][url][link] = {'title': title, 'price': price, 'location': location}
 
