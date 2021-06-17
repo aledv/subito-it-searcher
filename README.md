@@ -1,6 +1,6 @@
 # Improved version of subito-it-searcher
 
-BeautifulSoup scraper running queries on a popular italian ad website.
+BeautifulSoup scraper running queries on subito.it and tutti.ch website.
 This searcher is compatible with Python 3.x versions.
 
 Features (thanks to Marco Perronet)
@@ -23,7 +23,7 @@ To have to bot send you updates on Telegram, follow these steps:
 3) Create a public channel and add the newly created bot as administrator
 4) **Save the name of the channel** including the "@", for example: @subito_bot
 
-To configure Telegram, simply invoke the script with the proper parameters as following:
+To configure Telegram, simply invoke the script with the proper parameters as following (the configuration is the same for both searcher):
 
 `pyhton3 subito-searcher.py --addtoken [YOUR_API_TOKEN] --addchatid [YOUR_CHANNEL_NAME]`
 
@@ -53,3 +53,5 @@ Here is a cheatsheet of the most common usages:
 
 * Start the bot, but disable telegram messages:
 `python3 subito-searcher.py --tgoff`
+
+The commands above are valid also for tutti-searcher.py
