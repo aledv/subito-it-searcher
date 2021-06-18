@@ -55,3 +55,4 @@ Here is a cheatsheet of the most common usages:
 `python3 subito-searcher.py --tgoff`
 
 The commands above are valid also for tutti-searcher.py
+** For to use tutti-searcher.py you should be on CH land or use a VPN that simulates that you are in CH **
