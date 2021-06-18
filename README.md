@@ -56,4 +56,4 @@ Here is a cheatsheet of the most common usages:
 
 The commands above are valid also for tutti-searcher.py   
 
-**For to use tutti-searcher.py you should be on CH land or use a VPN that simulates that you are in CH**
+**You should be on CH land for using tutti-searcher.py or use a VPN that simulates that you are in CH**
